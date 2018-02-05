@@ -2,11 +2,11 @@ package com.bigdragonmall.service.impl;
 
 import com.bigdragonmall.common.Const;
 import com.bigdragonmall.common.ServerResponse;
-import com.bigdragonmall.common.TokenCache;
 import com.bigdragonmall.dao.UserMapper;
 import com.bigdragonmall.pojo.User;
 import com.bigdragonmall.service.IUserService;
 import com.bigdragonmall.util.MD5Util;
+import com.bigdragonmall.util.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,7 +107,7 @@ public class UserServiceImpl implements IUserService {
 			//说明问题及问题答案是这个用户的，并且是正确的
 			//UUID.randomUUID()生成的字符串重复率极低
 			String forgetToken = UUID.randomUUID().toString();
-			TokenCache.setKey("token_" + username,forgetToken);
+			RedisPoolUtil.setEx(Const.TOKEN_PREFIX+username,forgetToken,60*60*12);
 			return ServerResponse.createBySuccess(forgetToken);
 		}
 		return ServerResponse.createByErrorMessage("答案错误");
@@ -123,7 +123,7 @@ public class UserServiceImpl implements IUserService {
 			//用户不存在
 			return ServerResponse.createByErrorMessage("用户不存在");
 		}
-		String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX+username);
+		String token = RedisPoolUtil.get(Const.TOKEN_PREFIX+username);
 		if(StringUtils.isBlank(token)){
 			return ServerResponse.createByErrorMessage("token无效或者过期");
 		}
