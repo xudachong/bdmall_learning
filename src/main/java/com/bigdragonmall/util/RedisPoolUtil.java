@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
 /**
  * @Author: XuJuLong<5 7 4 4 0 8 5 7 8 @ qq.com>
  * @Description:
- * @Date: Created in 17:18 2018/2/5
+ * @Date: Created in 10:06 2018/2/6
  * @
  */
 @Slf4j
@@ -99,11 +99,11 @@ public class RedisPoolUtil {
 	public static void main(String[] args) {
 		Jedis jedis = RedisPool.getJedis();
 
-		RedisPoolUtil.set("keyTest","value");
-		String value = RedisPoolUtil.get("keyTest");
-		RedisPoolUtil.setEx("keyex","valueex",60*10);
-		RedisPoolUtil.expire("keyTest",60*20);
-		RedisPoolUtil.del("keyTest");
+		RedisShardedPoolUtil.set("keyTest","value");
+		String value = RedisShardedPoolUtil.get("keyTest");
+		RedisShardedPoolUtil.setEx("keyex","valueex",60*10);
+		RedisShardedPoolUtil.expire("keyTest",60*20);
+		RedisShardedPoolUtil.del("keyTest");
 		System.out.println("end");
 
 	}

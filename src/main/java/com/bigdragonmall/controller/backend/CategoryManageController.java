@@ -1,6 +1,5 @@
 package com.bigdragonmall.controller.backend;
 
-import com.bigdragonmall.common.Const;
 import com.bigdragonmall.common.ResponseCode;
 import com.bigdragonmall.common.ServerResponse;
 import com.bigdragonmall.pojo.User;
@@ -8,7 +7,7 @@ import com.bigdragonmall.service.ICategoryService;
 import com.bigdragonmall.service.IUserService;
 import com.bigdragonmall.util.CookieUtil;
 import com.bigdragonmall.util.JsonUtil;
-import com.bigdragonmall.util.RedisPoolUtil;
+import com.bigdragonmall.util.RedisShardedPoolUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * @Author: XuJuLong<5 7 4 4 0 8 5 7 8 @ qq.com>
@@ -41,7 +39,7 @@ public class CategoryManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
@@ -64,7 +62,7 @@ public class CategoryManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
@@ -84,7 +82,7 @@ public class CategoryManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
@@ -104,7 +102,7 @@ public class CategoryManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");

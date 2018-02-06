@@ -1,6 +1,5 @@
 package com.bigdragonmall.controller.backend;
 
-import com.bigdragonmall.common.Const;
 import com.bigdragonmall.common.ResponseCode;
 import com.bigdragonmall.common.ServerResponse;
 import com.bigdragonmall.pojo.Product;
@@ -11,7 +10,7 @@ import com.bigdragonmall.service.IUserService;
 import com.bigdragonmall.util.CookieUtil;
 import com.bigdragonmall.util.JsonUtil;
 import com.bigdragonmall.util.PropertiesUtil;
-import com.bigdragonmall.util.RedisPoolUtil;
+import com.bigdragonmall.util.RedisShardedPoolUtil;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -52,7 +50,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -73,7 +71,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -93,7 +91,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -115,7 +113,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -136,7 +134,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -157,7 +155,7 @@ public class ProductManageController {
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
@@ -187,7 +185,7 @@ public class ProductManageController {
 			resultMap.put("msg","请登录管理员");
 			return resultMap;
 		}
-		String userJsonStr = RedisPoolUtil.get(loginToken);
+		String userJsonStr = RedisShardedPoolUtil.get(loginToken);
 		User user = JsonUtil.string2Obj(userJsonStr,User.class);
 		if(user == null){
 			resultMap.put("success",false);
