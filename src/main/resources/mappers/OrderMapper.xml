@@ -233,7 +233,7 @@
   <select id="selectOrderStatusByCreateTime" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <include refid="Base_Column_List"/>
-    from mmall_order
+    from bdmall_order
     where status = #{status}
     <![CDATA[
     and create_time <= #{date}
@@ -242,7 +242,7 @@
   </select>
 
   <update id="closeOrderByOrderId" parameterType="int" >
-    UPDATE mmall_order
+    UPDATE bdmall_order
     SET status = 0
     where id = #{id}
   </update>
