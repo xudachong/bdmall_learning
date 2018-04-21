@@ -10,16 +10,19 @@ import com.bigdragonmall.util.JsonUtil;
 import com.bigdragonmall.util.RedisShardedPoolUtil;
 import com.bigdragonmall.vo.CartVo;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author: XuJuLong<5 7 4 4 0 8 5 7 8 @ qq.com>
- * @Description:
+ * @Description:购物车管理
  * @Date: Created in 20:42 2018/1/9
  * @
  */
@@ -34,6 +37,9 @@ public class CartController {
 	@RequestMapping("list.do")
 	@ResponseBody
 	public ServerResponse<CartVo> list(HttpServletRequest httpServletRequest){
+
+
+
 		String loginToken = CookieUtil.readLoginToken(httpServletRequest);
 		if(StringUtils.isEmpty(loginToken)){
 			return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");

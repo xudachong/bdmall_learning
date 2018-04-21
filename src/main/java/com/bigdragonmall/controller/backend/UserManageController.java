@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +35,9 @@ public class UserManageController {
 	@RequestMapping(value="login.do",method = RequestMethod.POST)
 	@ResponseBody
 	public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse){
+
+
+
 		ServerResponse<User> response = iUserService.login(username,password);
 		if(response.isSuccess()){
 			User user = response.getData();
